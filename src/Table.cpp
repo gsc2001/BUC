@@ -4,17 +4,21 @@
 
 #include "Table.h"
 
-Table::Table(const string &tableName) {
+Table::Table(const string &tableName, const string &cuboidName, const int rootDim) {
     this->tableName = tableName;
     this->rowCount = 0;
     this->columns.clear();
+    this->cuboidName = cuboidName;
+    this->rootDim = rootDim;
     this->writer = make_unique<TableWriter>(this->tableName);
 }
 
-Table::Table(const string &tableName, const vector<string> &cols) {
+Table::Table(const string &tableName, const string &cuboidName, const vector<string> &cols, const int rootDim) {
     this->tableName = tableName;
     this->rowCount = 0;
     this->columns = cols;
+    this->cuboidName = cuboidName;
+    this->rootDim = rootDim;
     this->writer = make_unique<TableWriter>(this->tableName);
 }
 
@@ -31,8 +35,10 @@ void Table::load(const string &fileName) {
         this->writer->writeRow(row);
         this->rowCount++;
     }
+    this->writer->dumpBuffer();
 
     fin.close();
+    logger.log("Loaded table rows: " + to_string(this->rowCount));
 }
 
 unordered_map<string, int> Table::getElems(int dim) const {
@@ -47,10 +53,10 @@ unordered_map<string, int> Table::getElems(int dim) const {
 }
 
 void Table::addRow(const vector<string> &row) {
+    logger.log("Writing row: " + to_string(this->rowCount + 1) + " TableName: " + this->tableName);
     assert(row.size() == this->dim());
     this->rowCount++;
     this->writer->writeRow(row);
-    logger.log("Writing row: " + to_string(this->rowCount));
 }
 
 

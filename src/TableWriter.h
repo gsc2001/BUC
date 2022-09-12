@@ -21,6 +21,10 @@ public:
     explicit TableWriter(const string &tableName);
 
     void writeRow(const vector<string> &row);
+
+    void dumpBuffer() const {
+        this->page->dump();
+    }
 };
 
 

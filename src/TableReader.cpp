@@ -16,8 +16,6 @@ TableReader::TableReader(const string &tableName, uint maxRows) {
 
 vector<string> TableReader::readRow() {
     assert(this->counter + PAGE_ROW_COUNT * this->pageCounter < this->maxRows);
-    auto &row = this->page->data[this->counter];
-    this->counter++;
     if (this->counter == this->page->data.size()) {
         this->counter = 0;
         this->pageCounter++;
@@ -25,6 +23,9 @@ vector<string> TableReader::readRow() {
         this->page = make_unique<Page>(fileName);
         this->page->load();
     }
+
+    auto &row = this->page->data[this->counter];
+    this->counter++;
 
     return row;
 }

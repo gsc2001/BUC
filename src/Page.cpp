@@ -13,8 +13,9 @@ void Page::dump() {
     ofstream fout(PAGE_TEMP_DIR + this->pageName, ios::out);
 
     for (auto &row: data) {
-        for (auto &data_point: row) {
-            fout << data_point << ",";
+        for (int j = 0; j < row.size(); j++) {
+            if (j != 0) fout << "|";
+            fout << row[j];
         }
         fout << "\n";
     }
@@ -27,7 +28,7 @@ void Page::load() {
     string line;
     vector<string> row;
     while (getline(fin, line)) {
-        row = splitString<string>(line, ',', &cleanStr);
+        row = splitString<string>(line, '|', &cleanStr);
         this->data.emplace_back(row);
     }
     fin.close();

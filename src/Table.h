@@ -19,18 +19,20 @@ using namespace std;
 class Table {
 private:
 
+
     unique_ptr<TableWriter> writer;
 public:
     string tableName;
+    string cuboidName;
     uint rowCount;
+    int rootDim;
     vector<string> columns;
 
     Table() = default;
 
+    Table(const string &tableName, const string &cuboidName, const int rootDim);
 
-    explicit Table(const string &tableName);
-
-    Table(const string &tableName, const vector<string> &cols);
+    Table(const string &tableName, const string &cuboidName, const vector<string> &cols, const int rootDim);
 
     void load(const string &fileName);
 
@@ -43,6 +45,10 @@ public:
     [[nodiscard]] unordered_map<string, int> getElems(int dim) const;
 
     void addRow(const vector<string> &row);
+
+    void dumpEverything() {
+        this->writer->dumpBuffer();
+    }
 
 };
 
