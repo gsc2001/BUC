@@ -82,6 +82,18 @@ void Table::deletePages() const {
     }
 }
 
+void Table::calculatePageSize(const string &fileName) {
+    ifstream fin(fileName, ios::in);
+    string line;
+    getline(fin, line);
+
+    int maxRowSize = 0;
+    while (getline(fin, line)) {
+        maxRowSize = max(maxRowSize, (int)line.size());
+    }
+    PAGE_ROW_COUNT = BLOCK_SIZE / maxRowSize;
+    fin.close();
+}
 
 
 

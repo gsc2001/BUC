@@ -52,6 +52,7 @@ public:
 
     void deletePages() const;
 
+    static void calculatePageSize(const string &fileName);
 };
 
 

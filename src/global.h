@@ -8,8 +8,8 @@
 
 using namespace std;
 
-// block size in KB
 extern int PAGE_ROW_COUNT;
+extern int BLOCK_SIZE;
 extern string PAGE_TEMP_DIR;
 extern string OUTPUT_DIR;
 extern Logger logger;

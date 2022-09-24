@@ -8,6 +8,7 @@ using namespace std::chrono;
 #include "buc.h"
 
 int PAGE_ROW_COUNT;
+int BLOCK_SIZE;
 string PAGE_TEMP_DIR = "../data/temp/";
 string OUTPUT_DIR = "../data/results/";
 
@@ -19,9 +20,10 @@ int main() {
     initialize();
     string fileName;
     cin >> fileName;
-    cin >> PAGE_ROW_COUNT;
+    cin >> BLOCK_SIZE;
     cin >> MIN_SUP;
     auto masterTable = Table("ALL", "ALL", 0);
+    masterTable.calculatePageSize(fileName);
     masterTable.load(fileName);
     vector<string> cols{"Cuboid Name", "Count"};
     auto outputTable = Table("Output", "NA", cols, 0);
