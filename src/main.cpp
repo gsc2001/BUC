@@ -32,7 +32,7 @@ int main() {
     auto duration = duration_cast<milliseconds>(stop - start);
     outputTable.dumpEverything();
     outputTable.exportTable();
-//    clear_folder(PAGE_TEMP_DIR);
+    clear_folder(PAGE_TEMP_DIR);
 
     cout << duration.count() << endl;
 
