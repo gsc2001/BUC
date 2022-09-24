@@ -33,4 +33,9 @@
 
 cmake-build-debug/
 data/temp/
+data/results/
 .idea/
+
+data/.DS_Store
+.DS_Store
+cmake-build-debug-clang/

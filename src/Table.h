@@ -13,8 +13,6 @@
 #include "TableReader.h"
 
 
-using namespace std;
-
 
 class Table {
 private:
@@ -49,6 +47,8 @@ public:
     void dumpEverything() {
         this->writer->dumpBuffer();
     }
+
+    void exportTable() const;
 
     void deletePages() const;
 

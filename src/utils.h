@@ -23,3 +23,5 @@ vector<T> splitString(string s, char delim, function<T(string)> apply) {
 
 
 string cleanStr(string str);
+void clear_folder(string folder_name);
+void initialize();

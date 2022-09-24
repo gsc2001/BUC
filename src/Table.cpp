@@ -59,6 +59,20 @@ void Table::addRow(const vector<string> &row) {
     this->writer->writeRow(row);
 }
 
+void Table::exportTable() const {
+    auto fileName = OUTPUT_DIR + this->tableName;
+    ofstream fout(fileName, ios::out);
+    auto tableReader = this->getReader();
+    for (int row_idx = 0; row_idx < this->rowCount; row_idx++) {
+        auto row = tableReader->readRow();
+        for (int j = 0; j < row.size(); j++) {
+            if (j != 0) fout << " ";
+            fout << row[j];
+        }
+        fout << "\n";
+    }
+}
+
 void Table::deletePages() const {
     logger.log("Deleting Pages of Table: " + this->tableName);
     for (auto page_idx = 0; page_idx < this->writer->pageCounter; page_idx++) {
