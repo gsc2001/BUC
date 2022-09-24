@@ -50,6 +50,8 @@ public:
         this->writer->dumpBuffer();
     }
 
+    void deletePages() const;
+
 };
 
 

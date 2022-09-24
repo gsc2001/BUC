@@ -22,8 +22,10 @@ public:
 
     void writeRow(const vector<string> &row);
 
-    void dumpBuffer() const {
+    void dumpBuffer() {
         this->page->dump();
+        this->pageCounter++;
+        this->counter = 0;
     }
 };
 

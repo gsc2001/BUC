@@ -19,8 +19,6 @@ public:
 
     void dump();
 
-    // TODO: delete Page functionality
-
     void load();
 };
 

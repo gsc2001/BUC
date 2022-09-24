@@ -49,8 +49,8 @@ partition(const Table &table, int dim, const unordered_map<string, int> &elems) 
 void buc(const Table &table, Table &outputTable) {
     logger.log("BUC on path: " + table.tableName);
 //    if (table.rowCount == 1) {
-//        // TODO: write ancestors
-//
+//        // TODO: write ancestors. Won't call this here, would shift to bucInMemory
+//        writeAncestors(table, outputTable);
 //        return;
 //    }
 
@@ -67,8 +67,8 @@ void buc(const Table &table, Table &outputTable) {
 
         // go over cardinality
         for (auto &elem: elems) {
-            // check min support
 
+            // check min support
             if (elem.second >= MIN_SUP) {
                 if (d < table.dim() - 1) {
                     buc(partitionedTables[elem.first], outputTable);
@@ -81,5 +81,59 @@ void buc(const Table &table, Table &outputTable) {
         }
     }
     // TODO: cleanup (by deleting all pages created by partitioned tables
+    table.deletePages();
 }
 
+unordered_map<string, int> getElems(const vector<vector<string>> &data, int dim) {
+    unordered_map<string, int> elems;
+    for (const auto &i: data) {
+        elems[i[dim]]++;
+    }
+    return elems;
+}
+
+vector<vector<string>> partition(vector<vector<string>> &data, int dim, const unordered_map<string, int> &elems) {
+
+    // this will be copied
+    unordered_map<string, int> countingDataMap(elems);
+
+    int prev = 0, temp;
+    for (auto &elem: countingDataMap) {
+        temp = elem.second;
+        elem.second += prev;
+        prev = temp;
+    }
+
+    vector<vector<string>> partitionedData(data.size());
+    string tempStr;
+
+    for (auto &i: data) {
+        tempStr = i[dim];
+        partitionedData[countingDataMap[tempStr] - 1] = i;
+        countingDataMap[tempStr]--;
+    }
+    return partitionedData;
+}
+
+void bucInMemory(vector<vector<string>> &&data, int dim) {
+    if (data.size() == 1) {
+        // TODO: writeAncestors
+    }
+
+
+    for (int d = 0; d < data[0].size(); d++) {
+        auto elems = getElems(data, d);
+        auto partitionedData = partition(data, d, elems);
+        for (auto& attribute: elems) {
+            if (attribute.second > MIN_SUP) {
+                if
+            }
+        }
+    }
+
+}
+
+
+void writeAncestors() {
+    // TODO: Implement writeAncestors
+}

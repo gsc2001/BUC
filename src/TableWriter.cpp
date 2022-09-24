@@ -6,9 +6,9 @@
 
 TableWriter::TableWriter(const string &tableName) {
     this->tableName = tableName;
-    this->pageCounter = 0;
     this->counter = 0;
-    auto fileName = this->tableName + "_" + to_string(this->pageCounter);
+    auto fileName = this->tableName + "_0";
+    this->pageCounter = 1;
     this->page = make_unique<Page>(fileName);
 }
 

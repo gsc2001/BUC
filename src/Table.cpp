@@ -59,5 +59,15 @@ void Table::addRow(const vector<string> &row) {
     this->writer->writeRow(row);
 }
 
+void Table::deletePages() const {
+    logger.log("Deleting Pages of Table: " + this->tableName);
+    for (auto page_idx = 0; page_idx < this->writer->pageCounter; page_idx++) {
+        auto fileName = PAGE_TEMP_DIR + this->tableName + "_" + to_string(page_idx);
+        if (remove(fileName.c_str()))
+            logger.log("DeletePage: Error");
+    }
+}
+
+
 
 

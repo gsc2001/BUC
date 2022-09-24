@@ -8,7 +8,7 @@ int PAGE_ROW_COUNT = 1000;
 string PAGE_TEMP_DIR = "../data/temp/";
 
 // TODO: finalize on this
-uint MIN_SUP = 1;
+uint MIN_SUP = 2;
 Logger logger("BUC.log");
 
 int main() {
