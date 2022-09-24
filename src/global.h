@@ -8,8 +8,8 @@
 
 using namespace std;
 
-extern int PAGE_ROW_COUNT;
-extern int BLOCK_SIZE;
+extern uint PAGE_ROW_COUNT;
+extern uint BLOCK_SIZE;
 extern string PAGE_TEMP_DIR;
 extern string OUTPUT_DIR;
 extern Logger logger;

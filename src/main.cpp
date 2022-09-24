@@ -7,12 +7,11 @@ using namespace std::chrono;
 #include "Table.h"
 #include "buc.h"
 
-int PAGE_ROW_COUNT;
-int BLOCK_SIZE;
+uint PAGE_ROW_COUNT;
+uint BLOCK_SIZE;
 string PAGE_TEMP_DIR = "../data/temp/";
 string OUTPUT_DIR = "../data/results/";
 
-// TODO: finalize on this
 uint MIN_SUP;
 Logger logger("BUC.log");
 
@@ -23,7 +22,7 @@ int main() {
     cin >> BLOCK_SIZE;
     cin >> MIN_SUP;
     auto masterTable = Table("ALL", "ALL", 0);
-    masterTable.calculatePageSize(fileName);
+    Table::calculatePageSize(fileName);
     masterTable.load(fileName);
     vector<string> cols{"Cuboid Name", "Count"};
     auto outputTable = Table("Output", "NA", cols, 0);
@@ -33,7 +32,7 @@ int main() {
     auto duration = duration_cast<milliseconds>(stop - start);
     outputTable.dumpEverything();
     outputTable.exportTable();
-    clear_folder(PAGE_TEMP_DIR);
+//    clear_folder(PAGE_TEMP_DIR);
 
     cout << duration.count() << endl;
 
